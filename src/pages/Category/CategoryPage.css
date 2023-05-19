@@ -15,24 +15,34 @@
     border-bottom: 1px rgba(126, 126, 126, 0.14) solid;
 }
 
-.cat_body {
-    height: 100%;
-    width: 100%;
+.left_side {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-right: 1px rgba(126, 126, 126, 0.14) solid;
+}
+
+.right_side {
+    overflow: auto;
+}
+
+.cat_body {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 .cat_container {
     display: grid;
-    grid-template-columns: repeat(5, 10fr);
+    grid-template-columns: repeat(3, 10fr);
     row-gap: 18px;
     column-gap: 25px;
 }
 
 
 .cat_box {
-    height: 200px;
+    height: 140px;
     width: 200px;
     border : 1px solid rgba(159, 159, 159, 0.38);
     cursor: pointer;
@@ -46,4 +56,39 @@
 
 .cat_box:hover {
     background-color: rgba(0, 255, 82, 0.11);
+}
+
+
+#kw_table {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 13px;
+}
+
+
+#kw_table thead th {
+    height: 40px;
+    background-color: rgba(29, 166, 13, 0.96);
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: 1px rgba(64, 110, 51, 0.47) solid;
+}
+
+#kw_table tbody td {
+    height: 40px;
+    border: 1px rgba(0, 0, 0, 0.151) solid;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    background-color:  rgb(243, 241, 241);
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: normal;
+    width: 150px;
+    font-size: 11px;
+    padding: 3px;
 }

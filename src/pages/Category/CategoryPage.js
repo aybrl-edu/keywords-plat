@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import {kw_data} from "../../data/kw_data";
+import {buildStyles, CircularProgressbar} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 
 import './CategoryPage.css'
 const CategoryPage = () => {
 
     const [kw_data, setKwData] = useState([])
+    const [category, setCategory] = useState({keywords : []})
 
     const fetchData = async () => {
         // profiles
@@ -18,6 +21,10 @@ const CategoryPage = () => {
     useEffect(() => {
         fetchData()
     }, []);
+
+    const handleCatClick = (cat) => {
+        setCategory(cat)
+    }
 
     const getIconByCategory = (cat) => {
         switch (cat) {
@@ -41,17 +48,61 @@ const CategoryPage = () => {
                 <h2>Keywords Analysis</h2>
             </div>
             <div className="cat_body">
-                <div className="cat_container">
-                    {
-                        kw_data.map(cat => (
-                            <div className="cat_box">
-                                <img style={{width : '35px', height : '35px'}}
-                                     src={'icons/' + getIconByCategory(cat.category)} alt='logo'>
-                                </img>
-                                <h4>{cat.category}</h4>
-                            </div>
-                        ))
-                    }
+                <div className="left_side">
+                    <div className="cat_container">
+                        {
+                            kw_data.map(cat => (
+                                <div className="cat_box" onClick={() => handleCatClick(cat)}>
+                                    <img style={{width : '35px', height : '35px'}}
+                                         src={'icons/' + getIconByCategory(cat.category)} alt='logo'>
+                                    </img>
+                                    <h4>{cat.category}</h4>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className="right_side">
+                    <div className="cat_table">
+                        <table id="kw_table">
+                            <thead>
+                                <tr>
+                                    <th>Keyword</th>
+                                    <th>Confidence</th>
+                                    <th>Relevance</th>
+                                    <th>Search Volume</th>
+                                    <th>Headiness</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    category.keywords.map(keyword => (
+                                        <tr>
+                                            <td>{keyword.kw}</td>
+                                            <td>{keyword.con}</td>
+                                            <td>{keyword.c}</td>
+                                            <td>{keyword.n}</td>
+                                            <td>{keyword.headiness}</td>
+                                            <td>
+                                                <div style={{ width: 50, height: 50}}>
+                                                    <CircularProgressbar
+                                                        value={keyword.c} maxValue={1}
+                                                        text={`${(keyword.c * 100).toFixed(2)}%`}
+                                                        styles={buildStyles({
+                                                            textColor: "darkblue",
+                                                            pathColor: "green",
+                                                            trailColor: "gray"
+                                                        })}
+                                                    />;
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
